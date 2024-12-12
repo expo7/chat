@@ -1,0 +1,671 @@
+/* Home Component Styles */
+
+/* Variables */
+// $primary-bg: #2d325a;
+$primary-bg: #1a1f38;
+$secondary-bg: #424769;
+$text-color: white;
+$border-color: #ddd;
+
+/* Mixin for Flex Centering */
+@mixin flex-center {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.message-info {
+  display: flex;
+  align-items: center;
+  .sender-name {
+    margin-right: 5px;
+  }
+}
+// .messages {
+//   background-color: blue;
+//   flex: 9;
+//   overflow-y: auto;
+//   padding: 20px;
+
+//   .message {
+//     display: flex;
+//     align-items: flex-start;
+//     margin-bottom: 10px;
+//     .message-content {
+//       background: green;
+//       color: white;
+//       margin-left: 10px;
+//       margin-right: 10;
+//       max-width: 70%;
+//       overflow-wrap: anywhere;
+//       .message-info {
+//         display: flex;
+//         align-items: center;
+//         .sender-name {
+//           margin-right: 5px;
+//         }
+
+//     &.own {
+//       flex-direction: row-reverse;
+//     }
+//   }
+// }
+
+.dropdown {
+  .dropdown-item {
+    background-color: #ddd;
+    border-bottom: 1px solid black;
+    display: flex;
+    cursor: pointer;
+    align-items: center;
+    // transition: background-color 0.2s;
+
+    &:hover {
+      background: rgba(255, 255, 255, 0.1);
+    }
+  }
+}
+.conversation {
+  border-bottom: 1px solid #ddd; // Ensure the border is defined with a solid style and a visible color
+  display: flex;
+  overflow: auto;
+  align-items: center;
+
+  padding: 10px;
+  cursor: pointer;
+  position: relative; // Add relative positioning to the parent element
+  // transition: background-color 0.2s;
+
+  &:hover {
+    background: rgba(255, 255, 255, 0.1);
+  }
+
+  .conversation-info {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+
+    .name {
+      color: white;
+      font-weight: bold;
+      margin: 0;
+      padding-right: 5px;
+    }
+
+    .preview {
+      color: rgba(255, 255, 255, 0.7);
+      margin: 0;
+      overflow-x: hidden;
+      transition: padding-right 0.2s; // Smooth transition for padding-right
+    }
+  }
+
+  .hide-btn {
+    position: absolute; // Position the button absolutely
+    right: 10px; // Position it to the right
+    padding: 5px 10px;
+    border: none;
+    border-radius: 4px;
+    background-color: #ddd;
+    color: black;
+    opacity: 0;
+    transition: opacity 0.2s, right 0.2s; // Smooth transition for opacity and right
+    cursor: pointer;
+
+    &:hover {
+      background: rgba(45, 50, 90, 0.2);
+      color: black;
+    }
+  }
+
+  &:hover .hide-btn {
+    opacity: 1;
+    right: 10px; // Ensure the button is visible on hover
+  }
+
+  &:hover .conversation-info .preview {
+    padding-right: 60px; // Add padding to account for the hide button when visible
+  }
+}
+
+/* Global Avatar Style */
+.avatar {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  object-fit: cover;
+  border: 2px solid rgba(255, 255, 255, 0.2);
+}
+
+/* Home Container */
+.home {
+  display: flex;
+  background: linear-gradient(135deg, #1a1f38 0%, $primary-bg 100%);
+  align-items: center;
+  justify-content: center;
+  height: 100vh;
+
+  .main-content {
+    background-color: grey;
+    display: flex;
+    flex-direction: column;
+    border-radius: 12px;
+    width: 65%;
+    height: 75%;
+    overflow: hidden;
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.15);
+
+    .sideChat {
+      height: 100%;
+      display: flex;
+      flex-direction: row;
+
+      .sidebar {
+        flex: 1;
+        overflow-y: auto;
+
+        .container {
+          display: flex;
+          flex-direction: column;
+          text-wrap: anywhere;
+
+          .search {
+            position: sticky;
+            top: 0;
+            // background-color: white;
+            z-index: 1000;
+            padding: 10px;
+            border-bottom: 1px solid $border-color;
+
+            input {
+              padding: 5px;
+              border: none;
+              background: transparent;
+              border-radius: 5px;
+              color: $text-color;
+
+              &::placeholder {
+                color: rgba(255, 255, 255, 0.5);
+              }
+            }
+          }
+
+          ul {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+
+            overflow-y: auto;
+            overflow-wrap: anywhere;
+
+            li {
+              overflow-wrap: anywhere;
+            }
+          }
+        }
+      }
+
+      .chat-section {
+        flex: 3;
+        border-left: 1px solid $border-color;
+
+        .chat-window {
+          display: flex;
+          flex-direction: column;
+          height: 100%;
+
+          .messages {
+            flex: 1;
+            background-color: blue;
+            padding: 20px;
+            overflow-y: auto;
+
+            .message {
+              display: flex;
+              margin-bottom: 10px;
+
+              .message-content {
+                background: green;
+                color: $text-color;
+                margin: 0 10px;
+                padding: 10px;
+                border-radius: 10px;
+                max-width: 70%;
+                overflow-wrap: anywhere;
+              }
+
+              &.own {
+                flex-direction: row-reverse;
+
+                .message-content {
+                  background: $primary-bg;
+                }
+              }
+            }
+          }
+
+          .sendiv {
+            display: flex;
+            padding: 20px;
+            background: black;
+            border-top: 1px solid #eee;
+
+            .message-form {
+              display: flex;
+              gap: 10px;
+              flex: 1;
+
+              .message-input {
+                flex: 1;
+                padding: 10px;
+                border: 1px solid $border-color;
+                border-radius: 5px;
+              }
+
+              .send {
+                padding: 10px 20px;
+                background: $primary-bg;
+                color: $text-color;
+                border: none;
+                border-radius: 5px;
+                cursor: pointer;
+
+                &:hover {
+                  background: $secondary-bg;
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}
+
+/* User Info */
+.user-info {
+  @include flex-center;
+  background-color: black;
+  position: absolute;
+  top: 0;
+  width: 100%;
+  z-index: 1000;
+
+  .current-user {
+    display: flex;
+    flex: 8;
+    align-items: center;
+
+    .userName {
+      color: $text-color;
+      font-weight: bold;
+      padding: 10px;
+    }
+
+    button {
+      background-color: $secondary-bg;
+      color: $text-color;
+      border: none;
+      padding: 5px;
+      cursor: pointer;
+      border-radius: 5px;
+      margin: 10px;
+
+      &:hover {
+        background-color: $primary-bg;
+      }
+    }
+  }
+
+  .active-chat {
+    display: flex;
+    flex: 2;
+    align-items: center;
+    justify-content: center;
+
+    .userName {
+      color: $text-color;
+      font-weight: bold;
+      padding: 10px;
+    }
+  }
+}
+
+/* Empty Chat */
+.empty-chat {
+  @include flex-center;
+  height: 100%;
+  font-size: 20px;
+  background-color: white;
+}
+
+// /*
+//  * Home component styles
+//  * Structure:
+//  * - Main container (.home)
+//  *   - Content wrapper (.main-content)
+//  *     - Header with user info (.user-info)
+//  *     - Chat interface (.sideChat)
+// //  */
+// .user-info {
+//   display: flex;
+//   background-color: black;
+//   position: absolute;
+//   top: 0;
+//   width: 100%;
+//   z-index: 1000;
+//   position: top;
+//   // margin-bottom: 100px;
+
+//   .current-user {
+//     background-color: black;
+//     display: flex;
+//     flex: 8;
+//     align-items: center;
+//     border-bottom: #eee;
+//     .userName {
+//       color: white;
+//       font-weight: bold;
+//       padding: 10px;
+//     }
+//     button {
+//       background-color: #424769;
+//       color: white;
+//       border: none;
+//       padding: 5px;
+//       cursor: pointer;
+//       border-radius: 5px;
+//       margin: 10px;
+//       &:hover {
+//         background-color: #2d325a;
+//         }
+//       }
+//     }
+//   }
+
+//   .active-chat {
+//     display: flex;
+//     flex-direction: row;
+//     flex: 2;
+//     align-items: center;
+//     justify-content: center;
+//     // background-color: #2d325a;
+//     .avatar {
+//       width: 40px;
+//       height: 40px;
+//       border-radius: 50%;
+//       object-fit: cover;
+//       margin: 5px;
+//       border: 2px solid rgba(255, 255, 255, 0.2);
+//     }
+//     .userName {
+//       color: white;
+//       font-weight: bold;
+//       padding: 10px;
+//     }
+//   }
+// .avatar {
+//   width: 40px;
+//   height: 40px;
+//   border-radius: 50%;
+//   object-fit: cover;
+//   border: 2px solid rgba(255, 255, 255, 0.2);
+// }
+
+// .empty-chat {
+//   display: flex;
+//   justify-content: center;
+//   align-items: center;
+//   height: 100%;
+//   font-size: 20px;
+//   background-color: white;
+// }
+
+// .home {
+//   display: flex;
+//   background: linear-gradient(135deg, #1a1f38 0%, #2d325a 100%);
+//   align-items: center;
+//   justify-content: center;
+//   height: 100vh;
+
+//   .main-content {
+//     background-color: grey;
+//     flex-direction: column;
+//     border-radius: 12px;
+//     display: flex;
+//     flex-direction: column;
+
+//     width: 65%;
+//     height: 75%;
+//     overflow: hidden;
+//     box-shadow: 0 8px 24px rgba(0, 0, 0, 0.15);
+//   }
+//   .sideChat {
+//     height: 100%;
+//     display: flex;
+//     flex-direction: row;
+
+//     .sidebar {
+//       flex: 1;
+//       overflow-y: auto;
+//       .container {
+//         // overflow-y: auto;
+//         display: flex;
+//         flex: 1;
+//         flex-direction: column;
+//         .search {
+//           position: sticky; // Make the search div sticky
+//           top: 0; // Stick to the top of its container
+//           background-color: black; // Ensure it has a background color to cover content behind it
+//           z-index: 1000; // Ensure it is above other elements
+//           padding: 10px; // Add some padding for better appearance
+//           align-content: center;
+//           border-bottom: 1px solid #ddd; // Ensure the border is defined with a solid style and a visible color
+// .dropdown {
+//   .dropdown-item {
+//     background-color: #ddd;
+//     border-bottom: 1px solid black;
+//     display: flex;
+//     cursor: pointer;
+//     align-items: center;
+//     // transition: background-color 0.2s;
+
+//     &:hover {
+//       background: rgba(255, 255, 255, 0.1);
+//     }
+//   }
+// }
+//           input {
+//             padding: 1px;
+//             border: none;
+//             background: transparent;
+//             border-radius: 5px;
+//             // background: rgba(255, 255, 255, 0.1);
+//             background-color: transparent;
+//             color: white;
+
+//             &::placeholder {
+//               color: rgba(255, 255, 255, 0.5);
+//             }
+//           }
+//         }
+
+//         ul {
+//           list-style: none;
+//           padding: 0;
+//           margin: 0;
+//           overflow-y: auto;
+//           overflow-wrap: anywhere;
+
+//           li {
+// .conversation {
+//   border-bottom: 1px solid #ddd; // Ensure the border is defined with a solid style and a visible color
+//   display: flex;
+//   align-items: center;
+//   padding: 10px;
+//   cursor: pointer;
+//   position: relative; // Add relative positioning to the parent element
+//   // transition: background-color 0.2s;
+
+//   &:hover {
+//     background: rgba(255, 255, 255, 0.1);
+//   }
+
+//   .conversation-info {
+//     flex: 1;
+//     display: flex;
+//     flex-direction: column;
+
+//     .name {
+//       color: white;
+//       font-weight: bold;
+//       margin: 0;
+//       padding-right: 5px;
+//     }
+
+//     .preview {
+//       color: rgba(255, 255, 255, 0.7);
+//       margin: 0;
+//       overflow-x: hidden;
+//       transition: padding-right 0.2s; // Smooth transition for padding-right
+//     }
+//   }
+
+//   .hide-btn {
+//     position: absolute; // Position the button absolutely
+//     right: 10px; // Position it to the right
+//     padding: 5px 10px;
+//     border: none;
+//     border-radius: 4px;
+//     background-color: #ddd;
+//     color: black;
+//     opacity: 0;
+//     transition: opacity 0.2s, right 0.2s; // Smooth transition for opacity and right
+//     cursor: pointer;
+
+//     &:hover {
+//       background: rgba(45, 50, 90, 0.2);
+//       color: black;
+//     }
+//   }
+
+//   &:hover .hide-btn {
+//     opacity: 1;
+//     right: 10px; // Ensure the button is visible on hover
+//   }
+
+//   &:hover .conversation-info .preview {
+//     padding-right: 60px; // Add padding to account for the hide button when visible
+//   }
+// }
+//       }
+//     }
+//   }
+// }
+
+//     .chat-section {
+//       border: #ddd;
+//       flex: 3;
+
+//       .chat-window {
+//         display: flex;
+//         flex-direction: column;
+//         height: 100%;
+//         overflow-y: auto;
+
+// .messages {
+//   background-color: blue;
+//   flex: 9;
+//   overflow-y: auto;
+//   padding: 20px;
+
+//   .message {
+//     display: flex;
+//     align-items: flex-start;
+//     margin-bottom: 10px;
+//     .message-content {
+//       background: green;
+//       color: white;
+//       margin-left: 10px;
+//       margin-right: 10;
+// max-width: 70%;
+// overflow-wrap: anywhere;
+// .message-info {
+//   display: flex;
+//   align-items: center;
+//   .sender-name {
+//     margin-right: 5px;
+//   }
+
+// &.own {
+//   flex-direction: row-reverse;
+
+//   .message-content {
+//     background: #2d325a;
+//     color: white;
+//     margin-left: 10px;
+//     margin-right: 10;
+//     max-width: 70%;
+//     overflow-wrap: anywhere;
+//     .message-info {
+//       display: flex;
+//       align-items: center;
+//       .sender-name {
+//         margin-right: 5px;
+//       }
+//     }
+//   }
+// }
+
+//             .avatar {
+//               width: 35px;
+//               height: 35px;
+//               border-radius: 50%;
+//               margin-right: 10px;
+//             }
+
+//             .message-content {
+//               background: #f1f1f1;
+//               padding: 10px 15px;
+//               border-radius: 10px;
+//               max-width: 70%;
+//             }
+//           }
+//         }
+//       }
+//       .sendiv {
+//         display: flex;
+//         flex: 1;
+//         padding: 20px;
+//         background: black;
+//         border-top: 1px solid #eee;
+
+//         .message-form {
+//           display: flex;
+//           gap: 10px;
+
+//           .message-input {
+//             flex: 1;
+//             padding: 10px;
+//             border: 1px solid #ddd;
+//             border-radius: 5px;
+//           }
+
+//           .send {
+//             padding: 10px 20px;
+//             background: #2d325a;
+//             color: white;
+//             border: none;
+//             border-radius: 5px;
+//             cursor: pointer;
+
+//             &:hover {
+//               background: #424769;
+//             }
+//           }
+//         }
+//       }
+//     }
+//   }
+
+// }
